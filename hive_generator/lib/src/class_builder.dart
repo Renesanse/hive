@@ -67,6 +67,11 @@ class ClassBuilder extends Builder {
   }
 
   String _cast(DartType type, String variable) {
+//    Property type sound fix
+    if(type.getDisplayString() == 'PropertyNotifier'){
+      return 'PropertyNotifier($variable.value)';
+    }
+
     if (hiveListChecker.isExactlyType(type)) {
       return '($variable as HiveList)?.castHiveList()';
     } else if (iterableChecker.isAssignableFromType(type) &&
