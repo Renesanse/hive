@@ -2,7 +2,9 @@ name: example
 
 dependencies:
   hive: any
+  osam: ^6.0.9
 
 dev_dependencies:
-  hive_generator: any
+  hive_generator:
+    path: ../../hive_generator
   build_runner: any
