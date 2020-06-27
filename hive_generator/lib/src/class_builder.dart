@@ -71,6 +71,13 @@ class ClassBuilder extends Builder {
     if(type.getDisplayString().contains('PropertyNotifier')){
       return 'PropertyNotifier($variable.value)';
     }
+//    return OsamRoute(
+//      fields[0],
+//      argument: fields[1],
+//    )..result = fields[2];
+    if(type.getDisplayString().contains('OsamRoute')){
+      return 'OsamRoute($variable.value, argument: $variable.argument, result: $variable.result)';
+    }
 
     if (hiveListChecker.isExactlyType(type)) {
       return '($variable as HiveList)?.castHiveList()';
