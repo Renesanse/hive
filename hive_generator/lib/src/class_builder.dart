@@ -68,17 +68,15 @@ class ClassBuilder extends Builder {
 
   String _cast(DartType type, String variable) {
 //    Property type sound fix
-    if(type.getDisplayString().contains('PropertyNotifier')){
-      return 'PropertyNotifier($variable.value)';
-    }
-//    return OsamRoute(
-//      fields[0],
-//      argument: fields[1],
-//    )..result = fields[2];
-    if(type.getDisplayString().contains('OsamRoute')){
-      return 'OsamRoute($variable.value, argument: $variable.argument, result: $variable.result)';
-    }
 
+  var fixedWithGeneric = '';
+    if(type.getDisplayString().contains('PropertyNotifier')){
+      fixedWithGeneric = 'PropertyNotifier($variable.value)';
+    }
+    if(type.getDisplayString().contains('PropertyNotifier<List<OsamRoute')){
+      fixedWithGeneric = 'PropertyNotifier(List<OsamRoute<Object,Object>>.from($variable.value)';
+    }
+    if(fixedWithGeneric.isNotEmpty) return fixedWithGeneric;
     if (hiveListChecker.isExactlyType(type)) {
       return '($variable as HiveList)?.castHiveList()';
     } else if (iterableChecker.isAssignableFromType(type) &&
