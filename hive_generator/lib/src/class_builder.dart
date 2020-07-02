@@ -73,7 +73,7 @@ class ClassBuilder extends Builder {
     if(type.getDisplayString().contains('PropertyNotifier')){
       fixedWithGeneric = 'PropertyNotifier($variable.value)';
     }
-    if(type.getDisplayString().contains('PropertyNotifier<List<OsamRoute')){
+    if(variable.runtimeType.toString() == 'List<OsamRoute>'){
       fixedWithGeneric = 'PropertyNotifier(List<OsamRoute<Object,Object>>.from($variable.value)';
     }
     if(fixedWithGeneric.isNotEmpty) return fixedWithGeneric;
