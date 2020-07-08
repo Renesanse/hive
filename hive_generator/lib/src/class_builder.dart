@@ -67,9 +67,16 @@ class ClassBuilder extends Builder {
   }
 
   String _cast(DartType type, String variable) {
-//    Property type sound fix
+    if(type.getDisplayString().contains('PropertyNotifier<Set')){
+      return 'PropertyNotifier(Set.from($variable.value))';
+    }
+    if(type.getDisplayString().contains('PropertyNotifier<Map')){
+      return 'PropertyNotifier(Map.from($variable.value))';
+    }
+    if(type.getDisplayString().contains('PropertyNotifier<Queue')){
+      return 'PropertyNotifier(Queue.from($variable.value))';
+    }
     if(type.getDisplayString().contains('PropertyNotifier<List')){
-      // todo set,map,queue
       return 'PropertyNotifier(List.from($variable.value))';
     }
     if(type.getDisplayString().contains('PropertyNotifier')){
