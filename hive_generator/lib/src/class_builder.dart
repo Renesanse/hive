@@ -33,16 +33,16 @@ class ClassBuilder extends Builder {
 
     var constr = cls.constructors.firstOrNullWhere((it) => it.name.isEmpty);
     check(constr != null, 'Provide an unnamed constructor.');
-
     // The remaining fields to initialize.
     var fields = setters.toList();
 
     var initializingParams =
-        constr.parameters.where((param) => param.isInitializingFormal);
+        constr.parameters;
     for (var param in initializingParams) {
+
       var field = fields.firstOrNullWhere((it) => it.name == param.name);
       // Final fields
-      field ??= getters.firstOrNullWhere((it) => it.name == param.name);
+      field ??= getters.firstOrNullWhere((it) => it.name.replaceFirst('_', '') == param.name);
       if (field != null) {
         if (param.isNamed) {
           code.write('${param.name}: ');

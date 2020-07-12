@@ -97,7 +97,7 @@ class TypeAdapterGenerator extends GeneratorForAnnotation<HiveType> {
           getters.add(AdapterField(getterAnn.index, field.name, field.type));
         }
       }
-
+      // ignore: lines_longer_than_80_chars
       var setter = cls.lookUpSetter('$name=', library);
       if (setter != null) {
         var setterAnn =
