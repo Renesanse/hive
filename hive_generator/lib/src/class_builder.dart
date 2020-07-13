@@ -70,16 +70,16 @@ class ClassBuilder extends Builder {
     if(type.getDisplayString().contains('IProperty<Set')){
       return 'IProperty(Set.from($variable.value))';
     }
-    if(type.getDisplayString().contains('PropertyNotifier<Map')){
+    if(type.getDisplayString().contains('IProperty<Map')){
       return 'IProperty(Map.from($variable.value))';
     }
-    if(type.getDisplayString().contains('PropertyNotifier<Queue')){
+    if(type.getDisplayString().contains('IProperty<Queue')){
       return 'IProperty(Queue.from($variable.value))';
     }
-    if(type.getDisplayString().contains('PropertyNotifier<List')){
+    if(type.getDisplayString().contains('IProperty<List')){
       return 'IProperty(List.from($variable.value))';
     }
-    if(type.getDisplayString().contains('PropertyNotifier')){
+    if(type.getDisplayString().contains('IProperty')){
       return 'IProperty($variable.value)';
     }
 
