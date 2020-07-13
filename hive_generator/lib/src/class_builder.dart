@@ -67,20 +67,20 @@ class ClassBuilder extends Builder {
   }
 
   String _cast(DartType type, String variable) {
-    if(type.getDisplayString().contains('PropertyNotifier<Set')){
-      return 'PropertyNotifier(Set.from($variable.value))';
+    if(type.getDisplayString().contains('IProperty<Set')){
+      return 'IProperty(Set.from($variable.value))';
     }
     if(type.getDisplayString().contains('PropertyNotifier<Map')){
-      return 'PropertyNotifier(Map.from($variable.value))';
+      return 'IProperty(Map.from($variable.value))';
     }
     if(type.getDisplayString().contains('PropertyNotifier<Queue')){
-      return 'PropertyNotifier(Queue.from($variable.value))';
+      return 'IProperty(Queue.from($variable.value))';
     }
     if(type.getDisplayString().contains('PropertyNotifier<List')){
-      return 'PropertyNotifier(List.from($variable.value))';
+      return 'IProperty(List.from($variable.value))';
     }
     if(type.getDisplayString().contains('PropertyNotifier')){
-      return 'PropertyNotifier($variable.value)';
+      return 'IProperty($variable.value)';
     }
 
     if (hiveListChecker.isExactlyType(type)) {

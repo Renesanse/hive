@@ -5,7 +5,7 @@ part 'main.g.dart';
 @HiveType(typeId: 1)
 class Person {
   @HiveField(0)
-  final String name;
+  final String _name;
 
-  Person(this.name);
+  Person(String name) : _name = name;
 }
