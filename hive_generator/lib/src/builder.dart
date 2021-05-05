@@ -12,7 +12,7 @@ class AdapterField {
 abstract class Builder {
   final ClassElement cls;
   final List<AdapterField> getters;
-  final List<AdapterField> setters;
+  final List<AdapterField>? setters;
 
   Builder(this.cls, this.getters, this.setters) : assert(cls != null);
 

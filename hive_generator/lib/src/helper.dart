@@ -4,11 +4,11 @@ import 'package:source_gen/source_gen.dart';
 
 final _hiveFieldChecker = const TypeChecker.fromRuntime(HiveField);
 
-HiveField getHiveFieldAnn(Element element) {
+HiveField? getHiveFieldAnn(Element element) {
   var obj = _hiveFieldChecker.firstAnnotationOfExact(element);
   if (obj == null) return null;
   return HiveField(
-    obj.getField('index').toIntValue(),
+    obj.getField('index')!.toIntValue()!,
   );
 }
 
@@ -19,8 +19,9 @@ Iterable<ClassElement> getTypeAndAllSupertypes(ClassElement cls) {
   return types;
 }
 
-void check(bool condition, dynamic error) {
+void check(bool condition, Object error) {
   if (!condition) {
+    // ignore: only_throw_errors
     throw error;
   }
 }

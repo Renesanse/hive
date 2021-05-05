@@ -34,10 +34,10 @@ class ClassBuilder extends Builder {
     var constr = cls.constructors.firstOrNullWhere((it) => it.name.isEmpty);
     check(constr != null, 'Provide an unnamed constructor.');
     // The remaining fields to initialize.
-    var fields = setters.toList();
+    var fields = setters?.toList() ?? [];
 
     var initializingParams =
-        constr.parameters;
+        constr!.parameters;
     for (var param in initializingParams) {
 
       var field = fields.firstOrNullWhere((it) => it.name == param.name);
@@ -67,22 +67,6 @@ class ClassBuilder extends Builder {
   }
 
   String _cast(DartType type, String variable) {
-    if(type.getDisplayString().contains('IProperty<Set')){
-      return 'IProperty(Set.from($variable.value))';
-    }
-    if(type.getDisplayString().contains('IProperty<Map')){
-      return 'IProperty(Map.from($variable.value))';
-    }
-    if(type.getDisplayString().contains('IProperty<Queue')){
-      return 'IProperty(Queue.from($variable.value))';
-    }
-    if(type.getDisplayString().contains('IProperty<List')){
-      return 'IProperty(List.from($variable.value))';
-    }
-    if(type.getDisplayString().contains('IProperty')){
-      return 'IProperty($variable.value)';
-    }
-
     if (hiveListChecker.isExactlyType(type)) {
       return '($variable as HiveList)?.castHiveList()';
     } else if (iterableChecker.isAssignableFromType(type) &&
@@ -91,7 +75,7 @@ class ClassBuilder extends Builder {
     } else if (mapChecker.isExactlyType(type)) {
       return '($variable as Map)${_castMap(type)}';
     } else {
-      return '$variable as ${type.getDisplayString()}';
+      return '$variable as ${type.getDisplayString(withNullability: true)}';
     }
   }
 
@@ -118,7 +102,7 @@ class ClassBuilder extends Builder {
       }
       return '?.map((dynamic e)=> ${_cast(arg, 'e')})$cast';
     } else {
-      return '?.cast<${arg.getDisplayString()}>()';
+      return '?.cast<${arg.getDisplayString(withNullability: true)}>()';
     }
   }
 
@@ -130,7 +114,9 @@ class ClassBuilder extends Builder {
       return '?.map((dynamic k, dynamic v)=>'
           'MapEntry(${_cast(arg1, 'k')},${_cast(arg2, 'v')}))';
     } else {
-      return '?.cast<${arg1.getDisplayString()}, ${arg2.getDisplayString()}>()';
+      // ignore: lines_longer_than_80_chars
+      return '?.cast<${arg1.getDisplayString(withNullability: true)}, ${arg2.getDisplayString(withNullability: true)}>'
+          '()';
     }
   }
 
